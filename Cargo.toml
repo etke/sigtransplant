@@ -1,0 +1,29 @@
+[package]
+name = "sigtransplant"
+version = "0.1.0"
+authors = ["etke"]
+edition = "2018"
+license = "Apache-2.0"
+description = "Transplant Windows PE code signatures from one binary to another."
+homepage = "https://crates.io/crates/sigtransplant"
+repository = "https://github.com/etke/sigtransplant"
+documentation = "https://github.com/etke/sigtransplant"
+keywords = ["binary", "signature", "PE"]
+categories = ["command-line-utilities"]
+include = [
+    "src/*.rs",
+    "Cargo.toml",
+    "README.md",
+    "LICENSE"
+]
+
+[profile.release]
+codegen-units = 1   # Reduce number of codegen units to increase optimizations
+lto = true          # Enable Link Time Optimization
+opt-level = 'z'     # Optimize for size
+panic = 'abort'     # Abort on panic
+
+[dependencies]
+goblin = "0.2.1"
+scroll = { version = "0.10.1", features = ["derive"] }
+scroll_derive = "0.10.1"
